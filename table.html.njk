@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+
+    <title>Gwent Top Player's Decks</title>
+    <meta name="description" content="Gwent Top Player's Decks">
+    <meta name="author" content="Will Colton">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tablefilter@0.6.94/dist/tablefilter/style/tablefilter.css">
+    <script src="https://cdn.jsdelivr.net/npm/tablefilter@0.6.94/dist/tablefilter/tf-0-753b2cd0ac94345cc829.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tablefilter@0.6.94/dist/tablefilter/tablefilter.js"></script>
+</head>
+
+<body>
+    <table class="deck-table">
+    <thead>
+        <tr>
+            <td>Faction</td>
+            <td>Name</td>
+            <td>fMMR</td>
+        </tr>
+    </thead>
+    <tbody>
+        {% for deck in decks %}
+            <tr>
+                <td>{{ deck.faction.slug }}</td>
+                <td><a href="https://www.playgwent.com/en/decks/guides/{{ deck.id }}">{{ deck.name }}</a></a></td>
+                <td>{{ deck.fMMR }}</td>
+            </tr>
+        {% endfor %}
+    </tbody>
+    </table>
+    <script>
+        var tfConfig = {
+            auto_filter: {
+                delay: 1100 //milliseconds
+            },
+            rows_counter: {
+                text: 'Decks: '
+            },
+            btn_reset: {
+                text: 'Clear'
+            },
+
+            // columns data types
+            col_types: [
+                'string',
+                'string',
+                'number',
+            ],
+
+            extensions: [{ name: 'sort' }]
+        };
+        var tf = new TableFilter(document.querySelector('.deck-table'), tfConfig);
+        tf.init();
+    </script>
+</body>
+</html>
