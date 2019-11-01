@@ -66,23 +66,19 @@ var rankCrawler = new Crawler({
             var $ = res.$;
             $(".on-desktop .td-nick strong").each((_, el) => {
                 const nickname = $(el).text();
-                profileCrawler.queue(`https://www.playgwent.com/en/profile/${nickname}`);
+                profileCrawler.queue(`https://www.playgwent.com/en/profile/${encodeURI(nickname)}`);
             });
         }
         done();
     }
 });
 
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/2');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/3');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/4');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/5');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/6');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/7');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/8');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/9');
-rankCrawler.queue('https://masters.playgwent.com/en/rankings/pro-rank/season-14/10');
+const season = 18;
+const pages = 10;
+for (let i = 1; i <= pages; i++) {
+    const pageText = i > 1 ? `/${i}` : '';
+    rankCrawler.queue(`https://masters.playgwent.com/en/rankings/pro-rank/season-${season}${pageText}`);
+}
 
 rankCrawler.on('drain', () => {
     profileCrawler.on('drain', () => {
