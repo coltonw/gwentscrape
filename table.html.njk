@@ -18,7 +18,8 @@
         <tr>
             <td>Faction</td>
             <td>Name</td>
-            <td>fMMR</td>
+            <td>MMR</td>
+            <td>Matches</td>
         </tr>
     </thead>
     <tbody>
@@ -26,7 +27,8 @@
             <tr>
                 <td>{{ deck.faction.slug }}</td>
                 <td><a href="https://www.playgwent.com/en/decks/guides/{{ deck.id }}">{{ deck.name }}</a></a></td>
-                <td>{{ deck.fMMR }}</td>
+                <td>{{ deck.mmr }}</td>
+                <td>{{ deck.matches }}</td>
             </tr>
         {% endfor %}
     </tbody>
